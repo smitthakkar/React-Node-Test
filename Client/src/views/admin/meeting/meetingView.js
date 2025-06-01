@@ -18,7 +18,7 @@ const MeetingView = (props) => {
     const user = JSON.parse(localStorage.getItem("user"))
     const [isLoding, setIsLoding] = useState(false)
     const navigate = useNavigate()
-//todo
+
     const fetchViewData = async () => {
         if (info) {
             setIsLoding(true)
@@ -86,22 +86,22 @@ const MeetingView = (props) => {
                                     {data?.related === 'Contact' && contactAccess?.view ? data?.attendes && data?.attendes.map((item) => {
                                         return (
                                             <Link to={`/contactView/${item._id}`}>
-                                                <Text color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item.firstName + ' ' + item.lastName}</Text>
+                                                <Text key={item?._id} color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item?.fullName}</Text>
                                             </Link>
                                         )
                                     }) : data?.related === 'Lead' && leadAccess?.view ? data?.attendesLead && data?.attendesLead.map((item) => {
                                         return (
                                             <Link to={`/leadView/${item._id}`}>
-                                                <Text color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item.leadName}</Text>
+                                                <Text key={item?._id} color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item.leadName}</Text>
                                             </Link>
                                         )
                                     }) : data?.related === 'Contact' ? data?.attendes && data?.attendes.map((item) => {
                                         return (
-                                            <Text color='blackAlpha.900' >{item.firstName + ' ' + item.lastName}</Text>
+                                            <Text key={item?._id} color='blackAlpha.900' >{item?.fullName}</Text>
                                         )
                                     }) : data?.related === 'Lead' ? data?.attendesLead && data?.attendesLead.map((item) => {
                                         return (
-                                            <Text color='blackAlpha.900' >{item.leadName}</Text>
+                                            <Text key={item?._id} color='blackAlpha.900' >{item.leadName}</Text>
                                         )
                                     }) : '-'}
                                 </GridItem>

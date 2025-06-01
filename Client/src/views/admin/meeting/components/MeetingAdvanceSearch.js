@@ -23,7 +23,7 @@ const MeetingAdvanceSearch = (props) => {
     }
     const validationSchema = yup.object({
         agenda: yup.string(),
-        createBy: yup.string().email('Invalid email format'),
+        createBy: yup.string(),
     });
     const formik = useFormik({
         initialValues: initialValues,
@@ -39,7 +39,8 @@ const MeetingAdvanceSearch = (props) => {
                     const timeMomentDate = moment(timeItemDate).format('YYYY-MM-DD');
                     return (
                         (!values?.agenda || (item?.agenda && item?.agenda.toLowerCase().includes(values?.agenda?.toLowerCase()))) &&
-                        (!values?.createdBy || (item?.createdByName && item?.createdByName.toLowerCase().includes(values?.createBy?.toLowerCase()))) &&
+                        (!values?.createBy || (item?.createBy &&  `${item?.createBy?.firstName} ${item?.createBy?.lastName}`
+                            .toLowerCase().includes(values?.createBy?.toLowerCase()))) &&
                         (!values?.startDate || (momentDate >= values.startDate)) &&
                         (!values?.endDate || (momentDate <= values.endDate)) &&
                         (!values.timeStartDate || (timeMomentDate >= values.timeStartDate)) &&
@@ -115,7 +116,7 @@ const MeetingAdvanceSearch = (props) => {
                                     onChange={handleChange} onBlur={handleBlur}
                                     value={values?.createBy}
                                     name="createBy"
-                                    placeholder='Enter Creator Email'
+                                    placeholder='Enter Creator'
                                     fontWeight='500'
                                 />
                                 <Text mb='10px' color={'red'}> {errors.createBy && touched.createBy && errors.createBy}</Text>

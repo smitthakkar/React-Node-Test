@@ -102,7 +102,7 @@ const Index = () => {
     const handleDeleteMeeting = async (ids) => {
         try {
             setIsLoding(true)
-            let response = await deleteManyApi(`api/${API_MEETING_ROUTE}/deleteMany`, ids)
+            let response = await deleteManyApi(`api/${API_MEETING_ROUTE}/deleteMany`, {ids})
             if (response.status === 200) {
                 setSelectedValues([])
                 setDeleteMany(false)
@@ -127,6 +127,7 @@ const Index = () => {
     return (
         <div>
             <CommonCheckTable
+                key={title}
                 title={title}
                 isLoding={isLoding}
                 columnData={tableColumns ?? []}

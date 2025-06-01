@@ -32,6 +32,13 @@ const view = async (req, res) => {
     if(!meetingId || !mongoose.Types.ObjectId.isValid(meetingId)) {
         return res.status(400).json({ error: 'Invalid meeting ID' });
     }
+    const meeting = await Meeting.findById(meetingId)
+    .populate({ path: 'createBy',match: { deleted: false }})
+    .populate({ path: 'attendes',match: { deleted: false }} )
+    .populate({ path: 'attendesLead',match: { deleted: false }} )
+    .exec();
+
+    return res.status(200).json(meeting);
     
 
 }
